@@ -1,0 +1,8 @@
+pt-BR:
+  devise:
+      links:
+        sign_up: 'Criar Conta'
+        forgot_password: 'Esqueci minha senha'
+        log_in: 'Entrar'
+      buttons:
+        reset_password: 'Resetar minha senha'
