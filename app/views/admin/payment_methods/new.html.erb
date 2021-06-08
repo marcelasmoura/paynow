@@ -1,0 +1,16 @@
+<h2>Novo Método de Pagamento</h2>
+
+<%= form_for [:admin, @payment_method] do |f| %>
+  <%= f.label :name %>
+    <%= f.text_field :name %>
+  <%= f.label :charge_fee %>
+    <%= f.text_field :charge_fee %>
+  <%= f.label :minimum_fee %>
+    <%= f.text_field :minimum_fee %>
+  <%= f.label :payment_icon %>
+    <%= f.file_field :payment_icon %>
+  <%= f.label :available %>
+    <%= f.check_box :available %>
+  <%= f.submit 'Adicionar Método de Pagamento' %>
+<% end %>
+

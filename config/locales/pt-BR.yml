@@ -5,6 +5,12 @@ pt-BR:
         password: 'Senha'
         password_confirmation: 'Confirmação de senha'
         remember_me: 'Lembrar-me' 
+      payment_method:
+        name: 'Nome'
+        charge_fee: 'Taxa de Cobrança'
+        minimum_fee: 'Taxa Mínima'
+        payment_icon: 'Ícone'
+        available: 'Ativar'
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
