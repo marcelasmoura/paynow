@@ -1,7 +1,8 @@
 <h2> Métodos de Pagamento </h2>
 
-<% @payment_methods.each do |n| %>
-	<%= link_to(n.name, '#')%>
+<% @payment_methods.each do |payment_method| %>
+	<%= link_to(payment_method.name, admin_payment_method_path(payment_method))%>
 <% end %>
 <br>
 <%= link_to("Novo Método de Pagamento", new_admin_payment_method_path) %>
+  

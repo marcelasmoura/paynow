@@ -16,6 +16,29 @@ class Admin::PaymentMethodsController < ApplicationController
     end
   end
 
+  def show
+    @payment_method = PaymentMethod.find(params[:id])
+  end
+
+  def edit
+    @payment_method = PaymentMethod.find(params[:id])
+  end
+
+  def update
+    @payment_method = PaymentMethod.find(params[:id])
+    if @payment_method.update(payment_method_params)
+      render :show
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @payment_method = PaymentMethod.find(params[:id])
+    @payment_method.destroy
+    redirect_to admin_payment_methods_path
+  end
+
   private
 
   def payment_method_params

@@ -1,0 +1,14 @@
+<h2><%= @payment_method.name%></h2>
+
+<% if @payment_method.payment_icon.attached? %>
+	<p><%= image_tag rails_representation_path(@payment_method.payment_icon.variant(resize_to_limit: [80, 80]).processed, only_path: true) %></p>
+<% end %>
+<p>Taxa de Cobrança <%= number_to_percentage @payment_method.charge_fee, precision: 2 %></p>
+<p>Taxa Miníma <%= number_to_currency @payment_method.minimum_fee %></p>
+<p><%= @payment_method.available ? 'Disponível' : 'Indisponível'%></p>
+
+<%= link_to("Editar", edit_admin_payment_method_path) %>
+<%= link_to("Excluir", admin_payment_method_path(@payment_method),
+            data: {confirm: t('payment.destroy.confirm')},
+            method: :delete) %>
+<%= link_to("Voltar", admin_payment_methods_path) %>

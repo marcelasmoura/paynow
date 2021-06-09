@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :home, only: :index 
-    resources :payment_methods, only: [:index, :new, :create]
+    resources :payment_methods
   end
   
   root 'home#index'

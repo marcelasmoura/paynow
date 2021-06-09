@@ -6,3 +6,6 @@ pt-BR:
         log_in: 'Entrar'
       buttons:
         reset_password: 'Resetar minha senha'
+  payment:
+    destroy:
+      confirm: 'Deseja realmente excluir esse método de pagamento?'
