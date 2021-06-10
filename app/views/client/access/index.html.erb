@@ -1,0 +1,13 @@
+<h2>Acessos</h2>
+
+<table>
+	<% @users.each do |u| %>
+		<tr>
+  		<td><%= u.email %></td>
+      <td><%= button_to("Permitir", client_access_allow_path, method: :post, params: {user_id: u.id}) %></td>
+      <td><%= button_to("Negar", client_access_deny_path, method: :post, params: {user_id: u.id}) %></td>
+    </tr>
+	<% end %>
+</table>
+
+

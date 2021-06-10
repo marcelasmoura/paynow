@@ -19,6 +19,6 @@ class Client::BusinessRegistersController < ApplicationController
 	private
 
 	def business_params
-		params.require(:business_register).permit(:corporate_name, :billing_address, :state, :zip_code, :billing_email, :cnpj)
+		params.require(:business_register).permit(:corporate_name, :billing_address, :state, :zip_code, :billing_email, :cnpj, :domain)
 	end
 end

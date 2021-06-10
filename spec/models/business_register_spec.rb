@@ -7,7 +7,8 @@ describe BusinessRegister, type: :model do
                                         state: 'São Paulo',
                                         zip_code: '25254282',
                                         billing_email: 'codeplay@codeplay.com.br',
-                                        cnpj: '123456000156'
+                                        cnpj: '123456000156',
+                                        domain: 'codeplay.com.br'
                                        )
     expect(business.token).to be_present
     expect(business.token.size).to eq 20

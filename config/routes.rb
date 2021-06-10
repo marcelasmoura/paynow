@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   namespace :client do
     resources :home, only: :index
     resources :business_registers, only: [:new, :create, :edit, :update, :show]
+    resources :access, only: [:index] 
+    post 'access/allow'
+    post 'access/deny'
+    
   end
   
   root 'home#index'

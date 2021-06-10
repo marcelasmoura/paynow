@@ -18,6 +18,7 @@ pt-BR:
         zip_code: 'CEP'
         billing_email: 'Email de Faturamento'
         cnpj: 'CNPJ'
+        domain: 'Dominio para Futuros Usuários'
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

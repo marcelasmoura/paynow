@@ -14,10 +14,11 @@ describe 'Client Actions' do
                                state: 'Rio de Janeiro',
                                zip_code: '12129589',
                                billing_email: 'codeplay@codeplay.com',
-                               cnpj: '123456789000125'
+                               cnpj: '123456789000125',
+                               domain: 'codeplay.com.br'
                                )
     end
-    
+
     before do
       sign_in user
     end
@@ -32,6 +33,7 @@ describe 'Client Actions' do
       expect(page).to have_text('Rio de Janeiro')
       expect(page).to have_text('12129589')
       expect(page).to have_text('codeplay@codeplay.com')
+      expect(page).to have_text('codeplay.com.br')
   	end
 
     xit 'Client can edit your business register' do

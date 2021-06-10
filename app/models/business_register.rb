@@ -1,5 +1,5 @@
 class BusinessRegister < ApplicationRecord
-	validates :corporate_name, :billing_address, :state, :zip_code, :billing_email, :cnpj, presence: true
+	validates :corporate_name, :billing_address, :state, :zip_code, :billing_email, :cnpj, :domain, presence: true
 
 	before_create :business_token
 
