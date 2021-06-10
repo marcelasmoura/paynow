@@ -1,0 +1,15 @@
+<%= form_for [:client, @business] do |f| %>
+  <%= f.label :corporate_name %>
+    <%= f.text_field :corporate_name %>
+  <%= f.label :cnpj %>
+    <%= f.text_field :cnpj %>
+  <%= f.label :billing_address %>
+    <%= f.text_field :billing_address %>
+  <%= f.label :state %>
+    <%= f.text_field :state %>
+  <%= f.label :zip_code %>
+    <%= f.text_field :zip_code %>
+  <%= f.label :billing_email %>
+    <%= f.text_field :billing_email %>
+  <%= f.submit 'Salvar' %>
+<% end %>

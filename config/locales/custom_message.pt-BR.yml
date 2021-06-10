@@ -9,3 +9,5 @@ pt-BR:
   payment:
     destroy:
       confirm: 'Deseja realmente excluir esse método de pagamento?'
+  client:
+    pending_approval: 'Aguardando liberação de acesso!'

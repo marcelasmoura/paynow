@@ -6,11 +6,11 @@ class User < ApplicationRecord
 
   enum role: [:super_admin, :client_admin, :client]
 
-  before_create :set_admin_role!
+  before_create :set_admin_role
 
   private
 
-  def set_admin_role!
+  def set_admin_role
     if email.include? '@paynow.com.br'
       self.role = :super_admin
     else

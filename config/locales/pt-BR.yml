@@ -11,6 +11,13 @@ pt-BR:
         minimum_fee: 'Taxa Mínima - R$'
         payment_icon: 'Ícone'
         available: 'Ativar'
+      business_register:
+        corporate_name: 'Razão Social'
+        billing_address: 'Endereço de Faturamento'
+        state: 'Estado'
+        zip_code: 'CEP'
+        billing_email: 'Email de Faturamento'
+        cnpj: 'CNPJ'
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
