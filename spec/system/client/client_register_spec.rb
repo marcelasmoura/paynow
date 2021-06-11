@@ -51,23 +51,45 @@ describe 'Client Actions' do
   	end
   end
 
-  context 'Client/Admin can allows or denies access of new clients users' do
-  	it 'Client/Admin allows access from other clients' do
+  context 'Client/Admin can manage access of new clients users' do
+  	it 'allow access to clients of its business' do
+      business = BusinessRegister.create!(corporate_name: 'CodePlay',
+                                        billing_address: 'Rua A, 20',
+                                        state: 'São Paulo',
+                                        zip_code: '25254282',
+                                        billing_email: 'codeplay@codeplay.com.br',
+                                        cnpj: '123456000156',
+                                        domain: 'codeplay.com.br'
+                                       )
+
   		client_admin = User.create!(email: 'admin@codeplay.com.br',
                                   password: 'thisisapassword',
-                                  password_confirmation: 'thisisapassword')
+                                  password_confirmation: 'thisisapassword',
+                                  business_register_id: business.id
+                                  )
 
       client = User.create!(email: 'other_client@codeplay.com.br',
                             password: 'thisisapassword',
-                            password_confirmation: 'thisisapassword') 
+                            password_confirmation: 'thisisapassword')
+
+      business2 = BusinessRegister.create!(corporate_name: 'GloboPlay',
+                                        billing_address: 'Rua A, 20',
+                                        state: 'São Paulo',
+                                        zip_code: '25254282',
+                                        billing_email: 'globoplay@globoplay.com.br',
+                                        cnpj: '123456000156',
+                                        domain: 'globoplay.com.br'
+                                       )
 
       client_admin2 = User.create!(email: 'admin@globoplay.com.br',
                             password: 'thisisapassword',
                             password_confirmation: 'thisisapassword')
 
+
       client2 = User.create!(email: 'other_client@globoplay.com.br',
                             password: 'thisisapassword',
                             password_confirmation: 'thisisapassword') 
+
 
       sign_in client_admin     
 
@@ -89,10 +111,21 @@ describe 'Client Actions' do
       expect(page).to have_link('Informações da Empresa')
   	end
 
-  	it 'Client/Admin denies access to other customers' do
+  	it 'deny access to clients of its business' do
+      business = BusinessRegister.create!(corporate_name: 'CodePlay',
+                                        billing_address: 'Rua A, 20',
+                                        state: 'São Paulo',
+                                        zip_code: '25254282',
+                                        billing_email: 'codeplay@codeplay.com.br',
+                                        cnpj: '123456000156',
+                                        domain: 'codeplay.com.br'
+                                       )
+
   		client_admin = User.create!(email: 'admin@codeplay.com.br',
                                   password: 'thisisapassword',
-                                  password_confirmation: 'thisisapassword')
+                                  password_confirmation: 'thisisapassword',
+                                  business_register_id: business.id
+                                  )
 
       client = User.create!(email: 'other_client@codeplay.com.br',
                             password: 'thisisapassword',

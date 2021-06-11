@@ -4,11 +4,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # belongs_to :business_register
+  belongs_to :business_register, optional: true
 
   enum role: [:super_admin, :client_admin, :client]
 
   before_create :set_admin_role
+
+  scope :pending, -> { where(pending: true) }
+
+  scope :by_domain, ->(domain) { where('email LIKE ?', "%@#{domain}") }
 
   private
 
@@ -17,7 +21,7 @@ class User < ApplicationRecord
       self.role = :super_admin
       self.pending = false
     else
-      if User.where('email like ?', '%@codeplay.com.br').any?
+      if User.by_domain('codeplay.com.br').any?
         self.role = :client
         self.pending = true
       else

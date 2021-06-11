@@ -2,12 +2,6 @@ require 'rails_helper'
 
 describe 'Client Actions' do
   context 'Client can manage your business register' do
-  	let!(:user) do
-        User.create!(email: 'admin@codeplay.com.br',
-                     password: 'thisisapassword',
-                     password_confirmation: 'thisisapassword')
-    end
-
     let!(:business_register) do
       BusinessRegister.create!(corporate_name: 'CodePlay',
                                billing_address: 'Rua da Estrela, 75',
@@ -17,6 +11,14 @@ describe 'Client Actions' do
                                cnpj: '123456789000125',
                                domain: 'codeplay.com.br'
                                )
+    end
+
+  	let!(:user) do
+        User.create!(email: 'admin@codeplay.com.br',
+                     password: 'thisisapassword',
+                     password_confirmation: 'thisisapassword',
+                     business_register_id: business_register.id
+                     )
     end
 
     before do
@@ -36,15 +38,35 @@ describe 'Client Actions' do
       expect(page).to have_text('codeplay.com.br')
   	end
 
-    xit 'Client can edit your business register' do
-      
+    it 'Client can edit your business register' do
+      visit client_home_index_path
+      click_on 'Informações da Empresa'
+      click_on 'Editar'
+
+      fill_in 'CNPJ', with: '123456789000258'
+      fill_in 'Razão Social', with: 'GloboPlay'
+      fill_in 'Endereço de Faturamento', with: 'Rua da Lua, 75'
+      fill_in 'Estado', with: 'São Paulo'
+      fill_in 'CEP', with: '12129677'
+      fill_in 'Email de Faturamento', with: 'globoplay@globoplay.com'
+      fill_in 'Dominio para Futuros Usuários', with: 'globoplay.com.br'
+
+      click_on 'Salvar'
+
+      expect(page).to have_text('GloboPlay')
+      expect(page).to have_text('123456789000258')
+      expect(page).to have_text('Rua da Lua, 75')
+      expect(page).to have_text('São Paulo')
+      expect(page).to have_text('12129677')
+      expect(page).to have_text('globoplay@globoplay.com')
+      expect(page).to have_text('globoplay.com.br')
     end
 
     xit 'Client can require a new token' do
       click_on 'Visualizar Token'
       click_on 'Solicitar Novo Token'
 
-      expect(page).to have_message('')
+      expect(page).to have_message('Novo Token Solicitado!')
     end
   end
 end

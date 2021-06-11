@@ -1,6 +1,6 @@
 class Client::AccessController < ApplicationController
 	def index
-		@users = User.where(pending: true)
+		@users = User.pending.by_domain(current_user.business_register.domain)
 	end
 
 	def allow
