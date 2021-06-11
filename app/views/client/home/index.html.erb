@@ -3,7 +3,9 @@
 <% if current_user.pending %>
 	<p> Aguardando liberação de acesso! </p>
 <% else %>
-  <%= link_to("Avaliar Acessos", client_access_index_path) %>
+  <p><%= link_to("Visualizar Token", client_token_index_path) %></p>
 
-  <%= link_to "Informações da Empresa", client_business_register_path(1) %>
+  <p><%= link_to("Avaliar Acessos", client_access_index_path) %></p>
+
+  <p><%= link_to "Informações da Empresa", client_business_register_path(1) %></p>
 <% end %>

@@ -25,7 +25,6 @@ class Client::BusinessRegistersController < ApplicationController
     @business = current_user.business_register
     if @business.update(business_params)
       redirect_to client_business_register_path(current_user.business_register)
-      #render :show
     else
       render :edit
     end

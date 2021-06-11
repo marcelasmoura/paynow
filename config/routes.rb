@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :home, only: :index
     resources :business_registers, only: [:new, :create, :edit, :update, :show]
     resources :access, only: [:index] 
+    resources :token, only: :index
     post 'access/allow'
     post 'access/deny'
     

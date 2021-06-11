@@ -1,0 +1,7 @@
+<h3>Token</h3>
+
+<p>Razão Social: <%= current_user.business_register.corporate_name %></p>
+<p>Token: <%= current_user.business_register.token %></p>
+
+<p><%= link_to("Solicitar Novo Token", "#") %> </p>
+<p><%= link_to("Voltar", client_home_index_path) %></p>

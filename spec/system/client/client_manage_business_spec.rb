@@ -62,6 +62,13 @@ describe 'Client Actions' do
       expect(page).to have_text('globoplay.com.br')
     end
 
+    it 'Can see business token' do
+      visit client_home_index_path
+      click_on 'Visualizar Token'
+
+      expect(page).to have_content(business_register.token)
+    end
+
     xit 'Client can require a new token' do
       click_on 'Visualizar Token'
       click_on 'Solicitar Novo Token'
