@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :token, only: :index
     post 'access/allow'
     post 'access/deny'
+    post 'token/new_token'
     
   end
   

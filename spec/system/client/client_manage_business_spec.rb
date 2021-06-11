@@ -69,11 +69,16 @@ describe 'Client Actions' do
       expect(page).to have_content(business_register.token)
     end
 
-    xit 'Client can require a new token' do
+    it 'Client can require a new token' do
+      visit client_home_index_path
+      old_token = business_register.token
       click_on 'Visualizar Token'
       click_on 'Solicitar Novo Token'
 
-      expect(page).to have_message('Novo Token Solicitado!')
+      business_register.reload
+
+      expect(page).to have_content(business_register.token)
+      expect(business_register.token).to_not eq(old_token)
     end
   end
 end

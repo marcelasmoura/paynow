@@ -3,5 +3,5 @@
 <p>Razão Social: <%= current_user.business_register.corporate_name %></p>
 <p>Token: <%= current_user.business_register.token %></p>
 
-<p><%= link_to("Solicitar Novo Token", "#") %> </p>
+<p><%= button_to("Solicitar Novo Token", client_token_new_token_path, method: :post, params: {business_register_id: current_user.business_register.id}) %> </p>
 <p><%= link_to("Voltar", client_home_index_path) %></p>
