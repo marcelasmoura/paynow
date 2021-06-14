@@ -1,0 +1,17 @@
+<h2><%= @client.corporate_name %></h2>
+
+<p>CNPJ: <%= @client.cnpj %></p> 
+<p>Endereço de Faturamento: <%= @client.billing_address %></p>
+<p>Estado: <%= @client.state %></p>
+<p>CEP: <%= @client.zip_code %></p>
+<p>Email de Faturamento: <%= @client.billing_email %></p>
+<p>Domínio para futuros usuários: <%= @client.domain %></p>
+<p>Token: <%= @client.token %></p>
+
+<p><%= link_to("Editar", edit_admin_client_user_path) %></p>
+
+<p><%= button_to("Gerar Novo Token", admin_token_new_token_path, method: :post, params: {business_register_id: @client.id}) %></p>
+
+<p><%= link_to("Suspender Conta", '#') %></p>
+
+<p><%= link_to("Voltar", client_home_index_path) %></p>

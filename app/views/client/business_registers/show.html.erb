@@ -1,11 +1,11 @@
-<h2><%= current_user.business_register.corporate_name %></h2>
+<h2><%= @business.corporate_name %></h2>
 
-<p>CNPJ: <%= current_user.business_register.cnpj %></p> 
-<p>Endereço de Faturamento: <%= current_user.business_register.billing_address %></p>
-<p>Estado: <%= current_user.business_register.state %></p>
-<p>CEP: <%= current_user.business_register.zip_code %></p>
-<p>Email de Faturamento: <%= current_user.business_register.billing_email %></p>
-<p>Domínio para futuros usuários: <%= current_user.business_register.domain %></p>
+<p>CNPJ: <%= @business.cnpj %></p> 
+<p>Endereço de Faturamento: <%= @business.billing_address %></p>
+<p>Estado: <%= @business.state %></p>
+<p>CEP: <%= @business.zip_code %></p>
+<p>Email de Faturamento: <%= @business.billing_email %></p>
+<p>Domínio para futuros usuários: <%= @business.domain %></p>
 
 <%= link_to("Editar", edit_client_business_register_path) %>
 

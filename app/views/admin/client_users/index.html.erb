@@ -1,0 +1,5 @@
+<h2>Lista de Clientes</h2>
+
+<% @clients.each do |c| %>
+	<p><%= link_to c.corporate_name, admin_client_user_path(c.id) %></p>
+<% end %>

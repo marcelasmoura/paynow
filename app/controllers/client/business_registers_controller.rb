@@ -14,23 +14,32 @@ class Client::BusinessRegistersController < ApplicationController
 	end
 
 	def show
-		@business = current_user.business_register
+		@business = business_register
 	end
 
 	def edit
-		@business = current_user.business_register
+		@business = business_register
 	end
 
   def update
-    @business = current_user.business_register
+    @business = business_register
     if @business.update(business_params)
-      redirect_to client_business_register_path(current_user.business_register)
+      redirect_to client_business_register_path(@business)
     else
       render :edit
     end
   end
 
 	private
+
+	def business_register
+		if current_user.super_admin?
+			BusinessRegister.find(params[:id])
+		else
+			current_user.business_register
+		end
+		
+	end
 
 	def business_params
 		params.require(:business_register).permit(:corporate_name, :billing_address, :state, :zip_code, :billing_email, :cnpj, :domain)

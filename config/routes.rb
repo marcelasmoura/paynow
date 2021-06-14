@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :home, only: :index 
     resources :payment_methods
+    resources :client_users, only: [:index, :show, :edit, :update]
+    post 'token/new_token'
   end
 
   namespace :client do
@@ -14,7 +16,6 @@ Rails.application.routes.draw do
     post 'access/allow'
     post 'access/deny'
     post 'token/new_token'
-    
   end
   
   root 'home#index'
