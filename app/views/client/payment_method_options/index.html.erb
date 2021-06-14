@@ -1,0 +1,9 @@
+<h2>Métodos de Pagamento</h2>
+
+<% @payment_options.each do |payment| %>
+	<p><%= link_to(payment.payment_method.name, client_payment_method_option_path(payment.id)) %></p>
+<% end %>
+
+<p><%= link_to("Adicionar Novo Método de Pagamento", new_client_payment_method_option_path) %></p>
+
+<p><%= link_to("Voltar", '#') %></p>

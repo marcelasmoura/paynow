@@ -1,0 +1,13 @@
+<%= form_for [:client, @payment_option] do |f| %>
+ <p> <%= f.label :payment_method_id %>
+    <%= f.select :payment_method_id,PaymentMethod.all.map{|option| [option.name, option.id]}, include_bank: true %></p>
+  <p><%= f.label :cod_febraban %>
+    <%= f.select :cod_febraban, Febraban.bank_options_for_select, include_bank: true %></p>
+  <p><%= f.label :discount %>
+    <%= f.text_field :discount %></p>
+  <p><%= f.label :token %>
+    <%= f.text_field :token %></p>
+  <p><%= f.label :active %>
+    <%= f.check_box :active %></p>
+  <%= f.submit 'Salvar' %>
+<% end %>

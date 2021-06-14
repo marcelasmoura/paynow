@@ -3,6 +3,8 @@
 <% if current_user.pending %>
 	<p> Aguardando liberação de acesso! </p>
 <% else %>
+  <p><%= link_to("Métodos de Pagamento", client_payment_method_options_path) %></p>
+
   <p><%= link_to("Visualizar Token", client_token_index_path) %></p>
 
   <p><%= link_to("Avaliar Acessos", client_access_index_path) %></p>

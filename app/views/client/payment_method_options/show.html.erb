@@ -1,0 +1,8 @@
+<h3><%= @payment_option.payment_method.name %></h3>
+
+<p>Código do Banco: <%= @payment_option.cod_febraban %></p>
+<p>Desconto: <%= number_to_percentage @payment_option.discount %></p>
+<p>Token: <%= @payment_option.token %></p>
+<p><%= @payment_option.active ? 'Disponível' : 'Indisponível' %></p>
+
+<%= link_to("Voltar", client_payment_method_options_path) %>
