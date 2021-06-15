@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :business_registers, only: [:new, :create, :edit, :update, :show]
     resources :access, only: [:index] 
     resources :token, only: :index
-    resources :payment_method_options, only: [:index, :new, :create, :show]
+    resources :payment_method_options
     post 'access/allow'
     post 'access/deny'
     post 'token/new_token'

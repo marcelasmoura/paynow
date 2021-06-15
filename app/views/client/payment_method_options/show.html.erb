@@ -1,8 +1,15 @@
 <h3><%= @payment_option.payment_method.name %></h3>
 
-<p>Código do Banco: <%= @payment_option.cod_febraban %></p>
+<p>Código do Banco: <%= @payment_option.bank_febraban_cod_and_name %></p>
 <p>Desconto: <%= number_to_percentage @payment_option.discount %></p>
 <p>Token: <%= @payment_option.token %></p>
 <p><%= @payment_option.active ? 'Disponível' : 'Indisponível' %></p>
 
-<%= link_to("Voltar", client_payment_method_options_path) %>
+
+<p><%= link_to("Editar", edit_client_payment_method_option_path) %></p>
+
+<p><%= link_to("Excluir", client_payment_method_option_path(@payment_option),
+                data: {confirm: t('payment.destroy.confirm')}, 
+                method: :delete) %></p>
+
+<p><%= link_to("Voltar", client_payment_method_options_path) %></p>

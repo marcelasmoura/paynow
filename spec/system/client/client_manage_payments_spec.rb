@@ -75,12 +75,38 @@ describe 'Client can choose the payment method' do
       expect(page).to have_link('Adicionar Novo Método de Pagamento')
     end
 
-    xit 'Creditcard' do
-      
+    it 'Creditcard' do
+      visit client_home_index_path
+      click_on 'Métodos de Pagamento'
+      click_on 'Adicionar Novo Método de Pagamento'
+
+      select 'MasterCard', from: 'Método de Pagamento'
+      select '025 - Banco Alfa S.A.', from: 'Banco'
+      fill_in 'Token', with: 'SDPNtC2BbkCbNxsPEirO'
+      fill_in 'Desconto', with: 3
+      check 'Ativar'
+      click_on 'Salvar'
+
+      expect(page).to have_text('Métodos de Pagamento')
+      expect(page).to have_link('MasterCard')
+      expect(page).to have_link('Adicionar Novo Método de Pagamento')
     end
 
-    xit 'Bank Slip' do
-      
+    it 'Bank Slip' do
+      visit client_home_index_path
+      click_on 'Métodos de Pagamento'
+      click_on 'Adicionar Novo Método de Pagamento'
+
+      select 'Boleto', from: 'Método de Pagamento'
+      select '025 - Banco Alfa S.A.', from: 'Banco'
+      fill_in 'Token', with: 'SDPNtC2BbkCbNxsPEirO'
+      fill_in 'Desconto', with: 2
+      check 'Ativar'
+      click_on 'Salvar'
+
+      expect(page).to have_text('Métodos de Pagamento')
+      expect(page).to have_link('Boleto')
+      expect(page).to have_link('Adicionar Novo Método de Pagamento')
     end
 
     it 'See a details of Payment Option' do
@@ -100,6 +126,54 @@ describe 'Client can choose the payment method' do
       expect(page).to have_text('2')
       expect(page).to have_text('SDPNtC2BbkCbNxsPEirO')
       expect(page).to have_text('Disponível')
+    end
+
+    it 'can edit a payment option' do
+      PaymentMethodOption.create!(payment_method: payment_method1, 
+                                  cod_febraban: '077 - Banco Inter S.A.',
+                                  discount: 2,
+                                  token: 'SDPNtC2BbkCbNxsPEirO',
+                                  active: true
+                                  )
+
+      visit client_home_index_path
+      click_on 'Métodos de Pagamento'
+      click_on payment_method1.name
+      click_on 'Editar'
+
+      select 'Boleto', from: 'Método de Pagamento'
+      select '121 - Banco Agibank S.A.', from: 'Banco'
+      fill_in 'Token', with: 'SDPNtC2BbkCbNxsPEirO'
+      fill_in 'Desconto', with: 8
+      uncheck 'Ativar'
+
+      click_on 'Salvar'
+
+      expect(page).to have_text('Boleto')
+      expect(page).to have_text('121 - Banco Agibank S.A.')
+      expect(page).to have_text('8')
+      expect(page).to have_text('SDPNtC2BbkCbNxsPEirO')
+      expect(page).to have_text('Indisponível')
+    end
+
+    it 'delete a payment option' do
+      PaymentMethodOption.create!(payment_method: payment_method1, 
+                                  cod_febraban: '077 - Banco Inter S.A.',
+                                  discount: 2,
+                                  token: 'SDPNtC2BbkCbNxsPEirO',
+                                  active: true
+                                  )
+
+      visit client_home_index_path
+      click_on 'Métodos de Pagamento'
+      click_on payment_method1.name
+      
+
+      accept_alert do
+        click_on 'Excluir'
+      end
+
+      expect(page).to_not have_link payment_method1.name
     end
   end
 end

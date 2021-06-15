@@ -20,6 +20,25 @@ class Client::PaymentMethodOptionsController < ApplicationController
     @payment_option = PaymentMethodOption.find(params[:id])
   end
 
+  def edit
+    @payment_option = PaymentMethodOption.find(params[:id])
+  end
+
+  def update
+    @payment_option = PaymentMethodOption.find(params[:id])
+    if @payment_option.update!(payment_params)
+      render :show
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @payment_option = PaymentMethodOption.find(params[:id])
+    @payment_option.destroy
+    redirect_to client_payment_method_options_path
+  end
+
   private
 
   def payment_params
