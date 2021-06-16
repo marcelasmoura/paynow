@@ -1,0 +1,10 @@
+<h3>Meus Produtos</h3>
+
+<% @products.each do |product| %>
+	<p><%= link_to(product.name, client_product_path(product.id)) %></p>
+	<p><%= link_to("Ver Token", client_path(product.id)) %></p>
+<% end %>
+
+<p><%= link_to "Novo Produto", new_client_product_path%></p>
+
+<p><%= link_to "Voltar", client_home_index_path%></p>

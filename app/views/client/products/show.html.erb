@@ -1,0 +1,12 @@
+<h3><%= @product.name %></h3>
+
+<p>Valor: <%= number_to_currency @product.price %></p>
+<p>Método de Pagamento: <%= @product.payment_method_option.payment_method.name %></p>
+<p>Token: <%= @product.token %></p>
+<p><%= @product.active ? 'Disponível' : 'Indisponível' %></p>
+
+<p><%= link_to "Editar", edit_client_product_path%></p>
+<p><%= link_to "Excluir", client_product_path(@product),
+				method: :delete,
+				data: {confirm: t('product.destroy.confirm')} %></p>
+<p><%= link_to "Voltar", client_products_path%></p>

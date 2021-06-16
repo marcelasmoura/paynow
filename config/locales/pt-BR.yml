@@ -25,6 +25,11 @@ pt-BR:
         discount: 'Desconto'
         token: 'Token'
         active: 'Ativar'
+      product:
+        name: 'Nome'
+        price: 'Valor'
+        payment_method_option_id: 'Método de Pagamento'
+        active: 'Ativar'
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

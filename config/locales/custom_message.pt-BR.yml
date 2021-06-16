@@ -11,3 +11,6 @@ pt-BR:
       confirm: 'Deseja realmente excluir esse método de pagamento?'
   client:
     pending_approval: 'Aguardando liberação de acesso!'
+  product:
+    destroy:
+      confirm: 'Deseja realmente excluir esse produto?'

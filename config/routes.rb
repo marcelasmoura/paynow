@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :access, only: [:index] 
     resources :token, only: :index
     resources :payment_method_options
+    resources :products 
+    get 'products/:id/token', to: 'products#token'
     post 'access/allow'
     post 'access/deny'
     post 'token/new_token'
