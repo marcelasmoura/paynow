@@ -21,5 +21,11 @@ Rails.application.routes.draw do
     post 'token/new_token'
   end
   
+  namespace :api do
+    namespace :v1 do
+      resources :customers, only: :create
+    end
+  end
+
   root 'home#index'
 end
