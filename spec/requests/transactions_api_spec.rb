@@ -33,6 +33,47 @@ describe 'PayNow API' do
                                   )
     end
 
+    let!(:card_payment_method) do
+      PaymentMethod.create!(name: 'CreditCard',
+                            charge_fee: 0.2,
+                            minimum_fee: 2,
+                            available: true,
+                            payment_type: :card,
+                            payment_icon: {
+                              io: File.open(Rails.root.join('spec', 'fixtures', 'banco.jpeg')),
+                              filename: 'banco.jpeg'
+                            })
+    end
+
+    let!(:card_payment_option) do
+      PaymentMethodOption.create!(payment_method: card_payment_method, 
+                                  cod_febraban: '077 - Banco Inter S.A.',
+                                  discount: 10,
+                                  token: 'SDPNtC2BbkCbNxsPEirO',
+                                  active: true
+                                  )
+    end
+    
+    let!(:bank_slip_payment_method) do
+      PaymentMethod.create!(name: 'Boleto',
+                            charge_fee: 0.2,
+                            minimum_fee: 2,
+                            available: true,
+                            payment_icon: {
+                              io: File.open(Rails.root.join('spec', 'fixtures', 'banco.jpeg')),
+                              filename: 'banco.jpeg'
+                            })
+    end
+    
+    let!(:bank_slip_payment_option) do
+      PaymentMethodOption.create!(payment_method: bank_slip_payment_method, 
+                                  cod_febraban: '077 - Banco Inter S.A.',
+                                  discount: 10,
+                                  token: 'SDPNtC2BbkCbNxsPEirO',
+                                  active: true
+                                  )
+    end
+
     let!(:product) do
       Product.create!(name: 'Curso A',
                       price: 50.00,
@@ -65,7 +106,28 @@ describe 'PayNow API' do
       expect(transaction).to be_pending
     end
 
-    xit 'generate a card transaction' do
+    it 'generate a card transaction' do
+      post '/api/v1/transactions', params: {
+        business_token: business_register.token,
+        payment_option_token: card_payment_option.token,
+        product_token: product.token,
+        customer_token: customer.token,
+        payment_details: {
+          card_number: '123456789102',
+          card_name: 'Jão da Silva',
+          card_cvv: '132'
+        }
+      }
+
+      expect(response).to have_http_status(201)
+      transaction = Transaction.last
+      expect(transaction.full_price).to eq(product.price)
+      expect(transaction.net_price).to eq(product.price - (product.price * card_payment_option.discount / 100))
+      expect(transaction.token).to be_present
+      expect(transaction).to be_pending
+      expect(transaction.payment_details.card_number).to eq('123456789102') 
+      expect(transaction.payment_details.card_name).to eq('Jão da Silva') 
+      expect(transaction.payment_details.card_cvv).to eq('132') 
     end
 
     xit 'generate bank slip transaction' do
@@ -84,6 +146,10 @@ describe 'PayNow API' do
     end
 
     xit 'validates card params' do
+      
+    end
+
+    xit 'validates payment option enabled' do
       
     end
   end

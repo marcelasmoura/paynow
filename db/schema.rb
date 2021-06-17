@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_180341) do
+ActiveRecord::Schema.define(version: 2021_06_17_221204) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(version: 2021_06_17_180341) do
     t.string "domain"
   end
 
+  create_table "card_payments", force: :cascade do |t|
+    t.string "card_number"
+    t.string "card_name"
+    t.string "card_cvv"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "full_name"
     t.string "cpf"
@@ -72,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_180341) do
     t.boolean "available"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "payment_type"
   end
 
   create_table "products", force: :cascade do |t|
@@ -106,8 +115,11 @@ ActiveRecord::Schema.define(version: 2021_06_17_180341) do
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "payment_details_type"
+    t.integer "payment_details_id"
     t.index ["business_register_id"], name: "index_transactions_on_business_register_id"
     t.index ["customer_id"], name: "index_transactions_on_customer_id"
+    t.index ["payment_details_type", "payment_details_id"], name: "index_polymorphic_payment_details"
     t.index ["payment_method_option_id"], name: "index_transactions_on_payment_method_option_id"
     t.index ["product_id"], name: "index_transactions_on_product_id"
   end

@@ -21,6 +21,11 @@ class Api::V1::TransactionsController < ApplicationController
     full_price = product.price
     net_price = full_price - (full_price * discount / 100)
 
+    payment_details = nil
+    if payment.payment_method.card?
+      payment_details = CardPayment.create!(card_params)
+    end
+
     @transaction = Transaction.new(business_register_id: business.id,
                                    payment_method_option_id: payment.id,
                                    product_id: product.id,
@@ -29,10 +34,21 @@ class Api::V1::TransactionsController < ApplicationController
                                    discount: discount,
                                    net_price: net_price,
                                    status: :pending)
+
+    if payment_details
+      @transaction.payment_details = payment_details
+    end
+
     if @transaction.save
       render json: {token: @transaction.token}, status: :created
     else
       render json: {errors: @transaction.errors}, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def card_params
+    params.require(:payment_details).permit(:card_name, :card_number, :card_cvv)
   end
 end
