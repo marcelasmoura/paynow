@@ -3,6 +3,8 @@ class Product < ApplicationRecord
 
   before_create :generate_token!
 
+  validates :token, uniqueness: true
+
   private
 
   def generate_token!

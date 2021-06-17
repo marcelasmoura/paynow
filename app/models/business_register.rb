@@ -1,5 +1,6 @@
 class BusinessRegister < ApplicationRecord
 	validates :corporate_name, :billing_address, :state, :zip_code, :billing_email, :cnpj, :domain, presence: true
+	validates :token, :domain, uniqueness: true
 
 	before_create :generate_token!
 

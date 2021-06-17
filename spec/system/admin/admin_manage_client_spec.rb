@@ -39,7 +39,7 @@ describe 'Admin can' do
                                zip_code: '12129589',
                                billing_email: 'codeplay@codeplay.com',
                                cnpj: '123456789000125',
-                               domain: 'codeplay.com.br'
+                               domain: 'globoplay.com.br'
                                )
       end
 
@@ -90,7 +90,7 @@ describe 'Admin can' do
       fill_in 'Estado', with: 'São Paulo'
       fill_in 'CEP', with: '12129677'
       fill_in 'Email de Faturamento', with: 'globoplay@globoplay.com'
-      fill_in 'Dominio para Futuros Usuários', with: 'globoplay.com.br'
+      fill_in 'Dominio para Futuros Usuários', with: 'globoplay2.com.br'
 
       click_on 'Salvar'
 
@@ -100,7 +100,7 @@ describe 'Admin can' do
       expect(page).to have_text('São Paulo')
       expect(page).to have_text('12129677')
       expect(page).to have_text('globoplay@globoplay.com')
-      expect(page).to have_text('globoplay.com.br')
+      expect(page).to have_text('globoplay2.com.br')
     end
 
     xit 'requests a suspend a client account' do
