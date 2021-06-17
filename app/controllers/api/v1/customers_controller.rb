@@ -4,10 +4,12 @@ class Api::V1::CustomersController < ApplicationController
 
   def create
     business = BusinessRegister.where(token: params[:business_token]).last
+   
     if business.nil?
       render json: {}, status: :unauthorized
       return
     end
+    
     @customer = Customer.new(customer_params)
 
     if Customer.where(cpf: @customer.cpf).exists? 

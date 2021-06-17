@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_16_181553) do
+ActiveRecord::Schema.define(version: 2021_06_17_180341) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -94,6 +94,24 @@ ActiveRecord::Schema.define(version: 2021_06_16_181553) do
     t.index ["customer_id"], name: "index_register_customers_on_customer_id"
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.integer "business_register_id", null: false
+    t.integer "payment_method_option_id", null: false
+    t.integer "product_id", null: false
+    t.integer "customer_id", null: false
+    t.decimal "full_price"
+    t.decimal "discount"
+    t.decimal "net_price"
+    t.string "token"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["business_register_id"], name: "index_transactions_on_business_register_id"
+    t.index ["customer_id"], name: "index_transactions_on_customer_id"
+    t.index ["payment_method_option_id"], name: "index_transactions_on_payment_method_option_id"
+    t.index ["product_id"], name: "index_transactions_on_product_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -114,4 +132,8 @@ ActiveRecord::Schema.define(version: 2021_06_16_181553) do
   add_foreign_key "products", "payment_method_options"
   add_foreign_key "register_customers", "business_registers"
   add_foreign_key "register_customers", "customers"
+  add_foreign_key "transactions", "business_registers"
+  add_foreign_key "transactions", "customers"
+  add_foreign_key "transactions", "payment_method_options"
+  add_foreign_key "transactions", "products"
 end
