@@ -1,7 +1,7 @@
 class PaymentMethod < ApplicationRecord
-	has_one_attached :payment_icon
+  has_one_attached :payment_icon
 
-	validates :name, presence: true
+  validates :name, presence: true
 
-	enum payment_type: [:pix, :bank_slip, :card]
+  enum payment_type: [:pix, :bank_slip, :card]
 end

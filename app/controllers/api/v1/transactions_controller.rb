@@ -3,13 +3,18 @@ class Api::V1::TransactionsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    business = BusinessRegister.where(token: params[:business_token]).last
-    payment = PaymentMethodOption.where(token: params[:payment_option_token]).last
-    product = Product.where(token: params[:product_token]).last
-    customer = Customer.where(token: params[:customer_token]).last
+    business = BusinessRegister.where(token: token_params[:business_token]).last
+    payment = PaymentMethodOption.where(token: token_params[:payment_option_token]).last
+    product = Product.where(token: token_params[:product_token]).last
+    customer = Customer.where(token: token_params[:customer_token]).last
 
     if business.nil? || payment.nil? || product.nil? || customer.nil?
       render json: {}, status: :bad_request
+      return
+    end
+
+    if !payment.active?
+      render json: {errors: {payment_option_token: 'Método de pagamento inativo'}}, status: :unprocessable_entity
       return
     end
 
@@ -23,7 +28,9 @@ class Api::V1::TransactionsController < ApplicationController
 
     payment_details = nil
     if payment.payment_method.card?
-      payment_details = CardPayment.create!(card_params)
+      payment_details = CardPayment.new(card_params)
+    elsif payment.payment_method.bank_slip?
+      payment_details = BankSlipPayment.new(bank_slip_params)
     end
 
     @transaction = Transaction.new(business_register_id: business.id,
@@ -36,6 +43,10 @@ class Api::V1::TransactionsController < ApplicationController
                                    status: :pending)
 
     if payment_details
+      if !payment_details.save
+        render json: {errors: {payment_details: payment_details.errors}}, status: :unprocessable_entity
+        return
+      end
       @transaction.payment_details = payment_details
     end
 
@@ -44,11 +55,23 @@ class Api::V1::TransactionsController < ApplicationController
     else
       render json: {errors: @transaction.errors}, status: :unprocessable_entity
     end
+
+  rescue ActionController::ParameterMissing
+    render json: {}, status: :bad_request
   end
 
   private
 
   def card_params
     params.require(:payment_details).permit(:card_name, :card_number, :card_cvv)
+  end
+
+  def bank_slip_params
+    params.require(:payment_details).permit(:full_address)
+  end
+
+  def token_params
+    params.require([:business_token, :payment_option_token, :product_token, :customer_token])
+    params
   end
 end
