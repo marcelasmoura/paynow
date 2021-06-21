@@ -1,0 +1,20 @@
+<h3>Minhas Cobranças</h3>
+
+<table>
+  <tr>
+  <th>Status</th>
+  <th>Nome</th>
+  <th>Vencimento</th>
+  <th>Pagamento</th>  
+  </tr>
+  <% @transactions.each do |transaction| %>
+  <tr>
+    <td><%= transaction.status %></td>
+    <td><%= link_to transaction.product.name, client_transaction_path(transaction) %></td>
+    <td><%= l transaction.due_date.to_date %></td>
+    <td><%= transaction.payment_method_option.payment_method.name %></td>
+  </tr>
+  <% end %>
+</table>
+
+<%= link_to "Voltar", client_home_index_path %>
