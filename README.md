@@ -67,3 +67,8 @@ POST /api/v1/customers
   "cpf": "12345678912"
 }
 ```
+
+
+## Tabelas
+
+![Untitled (1)](https://user-images.githubusercontent.com/57685135/123000914-8b3c5f00-d386-11eb-81f4-41bf735414dd.png)
