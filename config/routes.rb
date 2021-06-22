@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :home, only: :index 
     resources :payment_methods
     resources :client_users, only: [:index, :show, :edit, :update]
+    resources :transactions, only: [:index, :show, :edit, :update]
     post 'token/new_token'
   end
 

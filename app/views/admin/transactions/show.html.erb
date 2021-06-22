@@ -1,0 +1,18 @@
+<p>Nome: <%= @transaction.product.name %></p>
+<p>Método de Pagamento: <%= @transaction.payment_method_option.payment_method.name %></p>
+<p>Valor: <%= number_to_currency @transaction.product.price %></p>
+<p>Desconto: <%= number_to_percentage @transaction.payment_method_option.discount %></p>
+<p>Valor Total: <%= number_to_currency @transaction.net_price %></p>
+<p>Data de Vencimento: <%= l @transaction.due_date.to_date %></p>
+<p>Status: <%= @transaction.status %></p>
+
+<p><%= link_to "Editar Status", edit_admin_transaction_path %></p>
+
+<h4>Histórico</h4>
+<% @histories.each do |history| %>
+  <p>Status: <%= history.transaction_status %></p>
+  <p>Data de Pagamento: <%= l history.payment_date.to_date %></p>
+  <p>Código e Descrição: <%= history.payment_status_cod_and_name %></p>
+<% end %>
+
+<p><%= link_to "Voltar", admin_transactions_path %></p>

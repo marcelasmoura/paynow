@@ -1,0 +1,28 @@
+<h3>Editar Status de Pagamento</h3>
+
+<%= form_for [:admin, @transaction] do |f| %>
+  <p><%= f.label :status %>
+    <%= f.select :status, Transaction.statuses, {}, class: 'js-transaction-status' %></p>
+  <%= fields_for :transaction_history, TransactionHistory.new do |fh| %>
+    <p><%= fh.label :payment_date, 'Data de Pagamento' %>
+      <%= fh.text_field :payment_date %></p>  
+    <p class='js-payment-code hidden'><%= fh.label :payment_code, 'Status de Cobrança' %>
+      <%= fh.select :payment_code, PaymentStatusCode.status_code_for_select, prompt: 'Selecione Uma Opção' %></p>
+  <% end %>
+  <%= f.submit 'Salvar' %>
+<% end %>
+
+<p><%= link_to("Voltar", admin_transaction_path) %></p>
+
+
+<script type="text/javascript">
+  (function(){
+    document.querySelector(".js-transaction-status").addEventListener('change', (ev) =>{
+      if(ev.target.value !== "2"){
+        document.querySelector(".js-payment-code").classList.add("hidden")
+      }else{
+        document.querySelector(".js-payment-code").classList.remove("hidden")
+      }
+    })
+  })();
+</script>

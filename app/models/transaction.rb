@@ -5,6 +5,8 @@ class Transaction < ApplicationRecord
   belongs_to :customer
   belongs_to :payment_details, polymorphic: true, optional: true
 
+  has_many :transaction_histories
+
   validates :full_price, presence: true
   validates :token, uniqueness: true
 
@@ -12,6 +14,11 @@ class Transaction < ApplicationRecord
   before_create :set_default_due_date
 
   enum status: [:pending, :approved, :rejected]
+
+  def status=(value)
+    value =  Integer(value) rescue value
+    super value
+  end
 
   private
 

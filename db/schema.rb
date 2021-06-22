@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_214513) do
+ActiveRecord::Schema.define(version: 2021_06_22_155737) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -109,6 +109,16 @@ ActiveRecord::Schema.define(version: 2021_06_21_214513) do
     t.index ["customer_id"], name: "index_register_customers_on_customer_id"
   end
 
+  create_table "transaction_histories", force: :cascade do |t|
+    t.datetime "payment_date"
+    t.string "payment_code"
+    t.integer "transaction_status"
+    t.integer "transaction_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["transaction_id"], name: "index_transaction_histories_on_transaction_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.integer "business_register_id", null: false
     t.integer "payment_method_option_id", null: false
@@ -151,6 +161,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_214513) do
   add_foreign_key "products", "payment_method_options"
   add_foreign_key "register_customers", "business_registers"
   add_foreign_key "register_customers", "customers"
+  add_foreign_key "transaction_histories", "transactions"
   add_foreign_key "transactions", "business_registers"
   add_foreign_key "transactions", "customers"
   add_foreign_key "transactions", "payment_method_options"
