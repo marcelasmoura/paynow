@@ -1,24 +1,69 @@
-# README
+# PayNow
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Devise para autenticação;
+- SQLite como banco de dados;
+- Active Storage para upload de imagens;
+- Rspec e Capybara para testes;
+- Selenium WebDrive para teste de sistema no Chrome.
 
-Things you may want to cover:
+## Dependencias
+   - ruby 2.6.0
+   - node 16.1.0
+   - yarn 1.3.2
+   - webpack 5.37.0
+   - webpack-cli 4.7.0
 
-* Ruby version
+## Instalando Projeto
 
-* System dependencies
+```
+git clone git@github.com:marcelasmoura/paynow.git
 
-* Configuration
+```
+No diretorio do projeto:
 
-* Database creation
+```
+./bin/setup
 
-* Database initialization
+```
 
-* How to run the test suite
+## Rodando os Testes
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+## na pasta raiz do projeto
+rspec
+```
 
-* Deployment instructions
+## API
 
-* ...
+```
+POST /api/v1/transactions
+{
+  "business_token": "SDPNtC2BbkCbNxsPEirO",
+  "payment_option_token": "knfdbkljdfnbkldmvçla5",
+  "product_token": "WccdjbN4FkmwHDVQf6PK",
+  "customer_token": "xVafjxwU8v4Fxw5JEqwQ"
+}
+
+## response
+
+{"token":"yWhw5B5jKKX7ukhijchZ"} 
+
+```
+
+```
+POST /api/v1/customers
+{
+  "customer": {
+    "full_name": "João da Silva",
+    "cpf": "12345678912"
+  },
+  "business_token": "SDPNtC2BbkCbNxsPEirO"
+}
+
+## response
+
+{
+  "full_name": "João da 'silva",
+  "cpf": "12345678912"
+}
+```
